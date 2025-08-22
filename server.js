@@ -1,4 +1,5 @@
 // importa biblioteca
+const e = require("express");
 const express = require("express"); //framework web
 const { isArrayBuffer } = require("util/types");
 // cria a aplicação express
@@ -92,6 +93,13 @@ app.post("/alunos", (req, res) => {
     res.status(201).json({ mensagem: "Aluno criado com sucesso" })
 })
 
+app.delete("/alunos/:id", (req, res) => {
+    const id = Number(req.params.id);
+    const indice = ALUNOS.findIndex(aluno => aluno.id === id)
+    console.log(indice)
+    ALUNOS.splice(indice, 1);
+    res.status(204).json({ msg: "Aluno deletado com sucesso" })
+})
 
 app.listen(PORT, () => {
     console.log(`Servidor rodando em http: //localhost:${PORT}`);
